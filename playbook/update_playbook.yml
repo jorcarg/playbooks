@@ -1,0 +1,12 @@
+- name: Actualizar paquetes en servidores Debian/Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+    - name: Actualizar la lista de paquetes
+      apt:
+        update_cache: yes
+
+    - name: Actualizar todos los paquetes
+      apt:
+        upgrade: dist
+        autoremove: yes
