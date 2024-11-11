@@ -1,0 +1,29 @@
+- name: Despliegue de VM en VMware Workstation
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Crear una nueva máquina virtual
+      vmware_vm_vm_drs_rule:
+        hostname: "localhost"
+        username: "tets"
+        password: "Huawei1234"
+        validate_certs: no
+        name: "despliegue"
+        state: present
+        template: "plantilla"
+        hardware:
+          memory_mb: 2048
+          num_cpus: 2
+          disk:
+            - size_gb: 20
+              type: thin
+        networks:
+          - name: "Nombre_de_la_red"
+            ip: "192.168.171.100"
+            netmask: "255.255.255.0"
+            gateway: "192.168.171.1"
+      register: vm_result
+
+    - name: Mostrar información de la VM creada
+      debug:
+        var: vm_result
